@@ -1,7 +1,7 @@
 
 const useContractState = async (wallet: string, signal: AbortSignal) => {
 	try {
-		const raw = await fetch(`api/balance?${wallet}`, { signal });
+		const raw = await fetch(`api/balance?wallet=${wallet}`, { signal });
 		const data = await raw.json();
 		if (raw.status != 200) {
 			return 'error';

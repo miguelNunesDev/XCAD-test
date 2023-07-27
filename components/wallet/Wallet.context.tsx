@@ -14,7 +14,7 @@ export const WalletProvider = ({ children }: Props) => {
 	const [isLoading, setLoading] = useState<boolean>(false);
 
 	useEffect(() => {
-		if (!walletValue && walletValue == 'error') return;
+		if (!walletValue || walletValue == 'error') return;
 		fetchBalance();
 
 		return () => {};

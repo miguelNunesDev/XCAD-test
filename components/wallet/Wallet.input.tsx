@@ -11,7 +11,13 @@ interface Props extends Omit<BaseProp, 'children'> {
 	label: string;
 	onSend: Function;
 }
-
+const isBech32 = (value: string) => {
+	return value.includes('zil');
+};
+const isBase16 = (value: string) => {
+	const base16Regex = /^[0-9A-Fa-f]+$/;
+	return base16Regex.test(value);
+};
 const convertBech32To16 = (address: string) => {
 	try {
 		const decoded = bech32.decode(address);
@@ -38,8 +44,16 @@ const WalletInput = ({ className, label, placeholder, onSend }: Props) => {
 	const input = useRef<HTMLInputElement | null>(null);
 
 	const handler = () => {
-		const value = input?.current?.value ?? '';
+		const value = input?.current?.value ?? 'error';
+
 		setWalletValue((walletValue) => {
+			console.log({ is32: isBech32(value), is16: isBase16(value) });
+
+			if (!isBech32(value) && !isBase16(value)) return 'error';
+
+			if (!isBech32(value)) {
+				return value;
+			}
 			return convertBech32To16(value);
 		});
 	};
@@ -67,7 +81,7 @@ const WalletInput = ({ className, label, placeholder, onSend }: Props) => {
 			) : (
 				''
 			)}
-			{walletValue && walletValue !== 'error'  ? (
+			{walletValue && walletValue !== 'error' ? (
 				<Tooltip state='info'>Wallet Base16: {walletValue}</Tooltip>
 			) : (
 				<Tooltip state='info'>

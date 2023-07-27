@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { Platforms } from '../../data';
-import { PlatformStatus, PriceResponse } from '../../typings';
+import { PlatformStatus, PlatformsState } from '../../typings';
 
 const fetchPrice = async (id: string) => {
     try {
@@ -24,7 +24,7 @@ const calculateAveragePrice = (prices: Array<number>) => {
 export default async function handler(req: NextApiRequest, res: NextApiResponse<any>) {
     const ids = req.query.activePlatforms;
     const prices: Array<number> = []
-    const data: PriceResponse = { status: {}, price: 0 };
+    const data: PlatformsState = { status: {}, price: 0 };
 
     if (!ids) { res.status(500).send('Not valid query'); return }
 
