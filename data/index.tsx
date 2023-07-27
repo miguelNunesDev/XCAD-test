@@ -32,7 +32,7 @@ export const Platforms: { [key: string]: ApiPlatform } = {
 		api: 'https://api.cryptorank.io/v0/charts/prices-by-coin?keys=xcad-network&days=7',
 		isValidQuery: (query: unknown) => {
 			if (typeof query !== 'object') return false;
-			return Object.hasOwn(query ?? {}, 'data');
+			return query ?? {}.hasOwnProperty('data');
 		},
 		getPriceFromQuery: (query: cryptorank) => {
 			return query.data['xcad-network'].prices[0];
