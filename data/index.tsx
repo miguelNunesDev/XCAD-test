@@ -20,7 +20,7 @@ export const Platforms: { [key: string]: ApiPlatform } = {
 		api: 'https://api.coingecko.com/api/v3/simple/price?ids=xcad-network&vs_currencies=usd',
 		isValidQuery: (query: unknown) => {
 			if (typeof query !== 'object') return false;
-			return Object.hasOwn(query ?? {}, 'xcad-network');
+			return query ?? {}.hasOwnProperty('xcad-network');
 		},
 		getPriceFromQuery: (query: coinGeckoQuery) => {
 			return query['xcad-network']['usd'];
@@ -43,9 +43,8 @@ export const Platforms: { [key: string]: ApiPlatform } = {
 		logo: logo_zilStream,
 		api: 'https://io-cdn.zilstream.com/chart/aggr/zil1z5l74hwy3pc3pr3gdh3nqju4jlyp0dzkhq2f5y',
 		isValidQuery: (query: unknown) => {
-            
 			if (!Array.isArray(query)) return false;
-			return Object.hasOwn(query[0] ?? {}, 'value');
+			return query[0] ?? {}.hasOwnProperty('value');
 		},
 		getPriceFromQuery: (query: zilStream) => {
 			return query[0].value;
