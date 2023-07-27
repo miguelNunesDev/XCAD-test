@@ -43,7 +43,7 @@ const WalletBalance = ({ className }: Props) => {
 				<Title as='h3' className='pb-2 text-white'>
 					Wallet XCAD Balance:
 				</Title>
-				<Content className='pl-4' type='SM'>
+				<Content className='pl-4 mt-[-30px]' type='SM'>
 					{`
                         ${isLoading ? text.loading : ''}
                         ${!balance && !isLoading ? text.noValue : ''}
