@@ -1,43 +1,33 @@
-/**
- * Query Contract Balances from the Zilliqa Chain
- * 
- * Use the "@zilliqa-js/zilliqa" package to query the defined contract below and get the state.
- * The state will return all mutable fields on a smart contract and their current values.
- * 
- * Modify the handler below to accept an "address" string.
- * Query the defined contract below to get the current state.
- * Find and return the balance of the "address".
- */
+import { Zilliqa } from '@zilliqa-js/zilliqa';
+
+const zilliqa = new Zilliqa('https://api.zilliqa.com');
+const contractAddress = 'zil1z5l74hwy3pc3pr3gdh3nqju4jlyp0dzkhq2f5y';
+const walletAddress: string = '0xeF741c46a6Ef94De62f976c079fC6b391093aA05';
 
 import type { NextApiRequest, NextApiResponse } from 'next'
-// import { Zilliqa } from '@zilliqa-js/zilliqa';
-// import { ContractState } from '../../typings'
-
-// const zilliqa = new Zilliqa('https://api.zilliqa.com/');
-// const tokenAddress = 'zil1z5l74hwy3pc3pr3gdh3nqju4jlyp0dzkhq2f5y';
 
 type RequestData = {
 
 };
 
 type ResponseData = {
-  balance: string
+    balance: string
 };
 
-export default function handler(req: NextApiRequest, res: NextApiResponse<ResponseData>) {
-  // const contract = zilliqa.contracts.at(tokenAddress);
-  // ...
-  // const body: RequestData = JSON.parse(req.body);
+export default async function handler(req: NextApiRequest, res: NextApiResponse<ResponseData>) {
+    try {
+        const contract = zilliqa.contracts.at(contractAddress);
+        const state = await contract.getState();
+        const stateData = await state;
+        const balances = stateData.balances;
+        const token = walletAddress.toLocaleLowerCase()
 
-  /**
-   * TODO:
-   * Query the current "state" of the contract.
-   * Retrieve the balances from the "state".
-   * Get the "address" from the request data and return the balance of that address.
-   * 
-   * Hint: The "state" balances are in lower-case base16 format.
-   */
+        console.log('Estado del Contrato:', balances[token]);
+        res.status(200).json({ balance: balances[token] })
+        return;
+    } catch (error) {
+        console.error('Error al obtener el estado del contrato:', error);
+    }
 
-  res.status(200).json({ balance: '0' })
+    
 }
- 

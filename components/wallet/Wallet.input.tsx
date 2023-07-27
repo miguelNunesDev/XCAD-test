@@ -1,12 +1,10 @@
-import { Combobox } from '@headlessui/react';
-import { Label } from '@headlessui/react/dist/components/label/label';
-
-import React, { useRef, useState } from 'react';
-import { BaseProp } from '../../typings';
+import React, { useContext, useRef, useState } from 'react';
+import { BaseProp, WalletContextReturn } from '../../typings';
 import { bech32 } from 'bech32';
 import Image from 'next/image';
 import icon from '@public/icon_send.svg';
 import Tooltip from '../../elements/Tooltip';
+import { WalletContext } from './Wallet.context';
 
 interface Props extends Omit<BaseProp, 'children'> {
 	placeholder?: string;
@@ -16,11 +14,9 @@ interface Props extends Omit<BaseProp, 'children'> {
 
 const convertBech32To16 = (address: string) => {
 	try {
-		// Decodificar la dirección Bech32 a un array de bytes
 		const decoded = bech32.decode(address);
 		const bytes = bech32.fromWords(decoded.words);
 
-		// Convertir el array de bytes a su representación hexadecimal
 		const hexAddress = Buffer.from(bytes).toString('hex');
 
 		return hexAddress;
@@ -29,19 +25,22 @@ const convertBech32To16 = (address: string) => {
 			'Error al convertir la dirección Bech32 a hexadecimal:',
 			error
 		);
-		return null;
+		return 'error';
 	}
 };
 
 const WalletInput = ({ className, label, placeholder, onSend }: Props) => {
+	const context = useContext(WalletContext);
+	if (!context) return <></>;
+	const {
+		wallet: [walletValue, setWalletValue],
+	} = context;
 	const input = useRef<HTMLInputElement | null>(null);
-	const [walletValue, setWalletValue] = useState<string | null>(null);
 
 	const handler = () => {
-		
+		const value = input?.current?.value ?? '';
 		setWalletValue((walletValue) => {
-            if(!input.current)return walletValue;
-			return convertBech32To16(input.current.value);
+			return convertBech32To16(value);
 		});
 	};
 
@@ -63,10 +62,13 @@ const WalletInput = ({ className, label, placeholder, onSend }: Props) => {
 					<Image className='' src={icon} />
 				</button>
 			</div>
-			{walletValue ? (
-				<Tooltip state='info'>
-					Wallet Base16: {walletValue}
-				</Tooltip>
+			{walletValue === 'error' ? (
+				<Tooltip state='error'>Invalid Wallet</Tooltip>
+			) : (
+				''
+			)}
+			{walletValue && walletValue !== 'error'  ? (
+				<Tooltip state='info'>Wallet Base16: {walletValue}</Tooltip>
 			) : (
 				<Tooltip state='info'>
 					If your wallet is Bech32 it’ll be converted to Base16

@@ -1,20 +1,47 @@
-import React, { Component, createContext, useState } from 'react';
-import { BaseProp } from '../../typings';
+import React, { Component, createContext, useEffect, useState } from 'react';
+import { BaseProp, WalletContextReturn } from '../../typings';
+import useContractState from '../../hooks/useContractState';
 
-const WalletContext = createContext<{}>({});
+export const WalletContext = createContext<WalletContextReturn | undefined>(
+	undefined
+);
 
-interface Props extends BaseProp {
-	className: never;
-}
+interface Props extends Omit<BaseProp, 'className'> {}
 
-const WalletProvider = ({ children }: Props) => {
-	const [walletData, setWalletData] = useState(null);
+export const WalletProvider = ({ children }: Props) => {
+	const [walletValue, setWalletValue] = useState<string | null>(null);
+	const [balance, setBalance] = useState<string | null>(null);
+	const [isLoading, setLoading] = useState<boolean>(false);
+
+	useEffect(() => {
+		if (!walletValue && walletValue == 'error') return;
+		fetchBalance();
+
+		return () => {};
+	}, [walletValue]);
+
+	const fetchBalance = async () => {
+		console.log('Fetching balance');
+
+		setLoading(true);
+		const controller = new AbortController();
+		if (!walletValue) return;
+		const balance = await useContractState(walletValue, controller.signal);
+
+		setBalance(() => balance);
+		setLoading(false);
+	};
+
 	return (
-		<WalletContext.Provider value={{ walletData, setWalletData }}>
+		<WalletContext.Provider
+			value={{
+				wallet: [walletValue, setWalletValue],
+				balance: [balance, isLoading],
+			}}
+		>
 			{Array.isArray(children)
 				? children.map((child) => child)
 				: children}
 		</WalletContext.Provider>
 	);
 };
-export default { WalletContext, WalletProvider };

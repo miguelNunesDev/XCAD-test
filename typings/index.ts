@@ -28,6 +28,16 @@ export type PlatformContextReturn = {
     },
 
 }
+export type WalletContextReturn = {
+    wallet: [
+        string | null,
+        Dispatch<SetStateAction<string | null>>
+    ],
+    balance: [
+        string | null,
+        boolean
+    ]
+}
 export type ApiPlatform = {
     id: string,
     logo: StaticImageData,

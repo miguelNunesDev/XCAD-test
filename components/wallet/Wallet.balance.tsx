@@ -1,29 +1,55 @@
 import Image from 'next/image';
-import React from 'react';
+import React, { useContext } from 'react';
 import wallet from '@public/wallet_on.png';
 import walletWrapper from '@public/wallet_wrapper.png';
 import { BaseProp } from '../../typings';
 import Title from '../../elements/Title';
 import Content from '../../elements/Content';
-import useContractState from '../../hooks/useContractState';
+import { WalletContext } from './Wallet.context';
 
 interface Props extends Omit<BaseProp, 'children'> {}
 
+const text = {
+	loading: 'Loading your balance please wait..',
+	noValue:
+		'Enter your wallet address below or select one saved on you local files.',
+    error: 'Invalid wallet or not found'
+};
+
 const WalletBalance = ({ className }: Props) => {
-    useContractState();
+	const context = useContext(WalletContext);
+	if (!context) return <></>;
+	const {
+		balance: [balance, isLoading],
+	} = context;
+    console.log(balance, isLoading);
+    
 	return (
-		<section className={`${className} flex flex-wrap mx-auto gap-7 justify-center pb-11`}>
+		<section
+			className={`${className} flex flex-wrap mx-auto gap-7 justify-center pb-11`}
+		>
 			<aside className='relative w-44'>
 				<div className='img-box w-[136px] absolute absolute-center z-10'>
-					<Image src={wallet} />
+					<Image
+						className={`${
+							balance && !isLoading ? '' : 'saturate-0 opacity-40'
+						}`}
+						src={wallet}
+					/>
 				</div>
 				<Image className='mix-blend-overlay' src={walletWrapper} />
 			</aside>
 			<div className='bg-[#070809] max-w-[372px] px-6 py-9 rounded-md overflow-hidden flex flex-wrap items-center'>
-				<Title as='h3' className='pb-2 text-white'>Wallet XCAD Balance:</Title>
+				<Title as='h3' className='pb-2 text-white'>
+					Wallet XCAD Balance:
+				</Title>
 				<Content type='SM'>
-					Enter your wallet address below or select one saved on you
-					local files.
+					{`
+                        ${isLoading ? text.loading : ''}
+                        ${!balance && !isLoading ? text.noValue : ''}
+                        ${balance === 'error' && !isLoading ? text.error : ''}
+                        ${balance && balance !== 'error' && !isLoading ? balance : ''}
+                    `}
 				</Content>
 			</div>
 		</section>

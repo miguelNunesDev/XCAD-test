@@ -14,6 +14,7 @@ import Image from 'next/image';
 import avatarCircle from '@public/avatar_circle.png';
 import hand from '@public/hand.png';
 import TitleEnum from '../elements/Title.enum';
+import { WalletProvider } from '../components/wallet/Wallet.context';
 
 // import { fromBech32Address, toBech32Address } from '@zilliqa-js/crypto';
 // import { isBech32, isAddress } from '@zilliqa-js/util/dist/validation';
@@ -79,37 +80,40 @@ const Home: NextPage = (props) => {
 							</header>
 							<div className='flex flex-wrap items-center w-full justify-evenly'>
 								<PlatformPriceCard className='mb-16 lg:mb-0' />
-                                
+
 								<div className='hidden dividers w-[11.5%] border-r border-noble-500 h-full lg:grid content-center'>
 									<hr className='border-noble-500' />
 								</div>
-                                
+
 								<PlatformList />
 							</div>
 						</article>
 					</PlatformsProvider>
 
 					<hr className='my-12 border-noble-500' />
+                    
+					<WalletProvider>
+						<article>
+							<header className='w-full pb-6'>
+								<TitleEnum>2</TitleEnum>
+								<Title
+									as='h2'
+									className='inline-block ml-5 text-white align-middle'
+								>
+									Wallet Balance
+								</Title>
+							</header>
 
-					<article>
-						<header className='w-full pb-6'>
-							<TitleEnum>2</TitleEnum>
-							<Title
-								as='h2'
-								className='inline-block ml-5 text-white align-middle'
-							>
-								Wallet Balance
-							</Title>
-						</header>
-						<WalletBalance />
-						<WalletInput
-							label='Wallet Address'
-							placeholder='Write or select walled address'
-							onSend={() => {
-								console.log('Send');
-							}}
-						/>
-					</article>
+							<WalletBalance />
+							<WalletInput
+								label='Wallet Address'
+								placeholder='Write or select walled address'
+								onSend={() => {
+									console.log('Send');
+								}}
+							/>
+						</article>
+					</WalletProvider>
 				</main>
 			</div>
 		</>
