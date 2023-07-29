@@ -1,4 +1,4 @@
-import React, { Component, createContext, useEffect, useState } from 'react';
+import React, { createContext, useEffect, useState } from 'react';
 import { BaseProp, WalletContextReturn } from '../../typings';
 import useContractState from '../../hooks/useContractState';
 

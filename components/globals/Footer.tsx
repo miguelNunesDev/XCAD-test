@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import logoMiguel from '@public/logo_miguelNunes.png';
+import logoMiguel from '../../public/logo_miguelNunes.png';
 type Props = {};
 
 const Footer = (props: Props) => {

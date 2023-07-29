@@ -1,8 +1,8 @@
-import React, { useContext, useRef, useState } from 'react';
-import { BaseProp, WalletContextReturn } from '../../typings';
+import React, { useContext, useRef } from 'react';
+import { BaseProp } from '../../typings';
 import { bech32 } from 'bech32';
 import Image from 'next/image';
-import icon from '@public/icon_send.svg';
+import icon from '../../public/icon_send.svg';
 import Tooltip from '../../elements/Tooltip';
 import { WalletContext } from './Wallet.context';
 

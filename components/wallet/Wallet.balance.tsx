@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import React, { useContext } from 'react';
-import wallet from '@public/wallet_on.png';
-import walletWrapper from '@public/wallet_wrapper.png';
+import wallet from '../../public/wallet_on.png';
+import walletWrapper from '../../public/wallet_wrapper.png';
 import { BaseProp } from '../../typings';
 import Title from '../../elements/Title';
 import Content from '../../elements/Content';

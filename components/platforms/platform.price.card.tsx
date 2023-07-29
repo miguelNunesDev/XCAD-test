@@ -3,12 +3,12 @@ import { BaseProp } from '../../typings';
 import { PlatformsContext } from './platform.context';
 import Image from 'next/image';
 
-import cardBg from '@public/card_bg.png';
-import logoSmall from '@public/logo_small.png';
-import iconReload from '@public/icon_reload.png';
+import cardBg from '../../public/card_bg.png';
+import logoSmall from '../../public/logo_small.png';
+import iconReload from '../../public/icon_reload.png';
 import Title from '../../elements/Title';
 import Tooltip from '../../elements/Tooltip';
-import loading from '@public/Infinity-2s-200px.gif';
+import loading from '../../public/Infinity-2s-200px.gif';
 
 interface Props extends Pick<BaseProp, 'className'> {}
 

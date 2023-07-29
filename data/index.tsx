@@ -1,8 +1,8 @@
 import { ApiPlatform } from '../typings';
-import logo_coinGecko from '@public/logo_coinGecko.png';
-import logo_cryptorank from '@public/logo_cryptorank.png';
-import logo_notFound from '@public/logo_notFound.png';
-import logo_zilStream from '@public/logo_zilStream.png';
+import logo_coinGecko from '../public/logo_coinGecko.png';
+import logo_cryptorank from '../public/logo_cryptorank.png';
+import logo_notFound from '../public/logo_notFound.png';
+import logo_zilStream from '../public/logo_zilStream.png';
 
 type coinGeckoQuery = {
 	'xcad-network': { usd: number };

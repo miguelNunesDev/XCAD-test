@@ -1,8 +1,6 @@
-import React, { useContext } from 'react';
-import bg from '@public/bg_aside.jpg';
+import bg from '../../public/bg_aside.jpg';
 import Image from 'next/image';
-import { BaseProp, PlatformContextReturn } from '../../typings';
-import { PlatformsContext } from '../platforms/platform.context';
+import { BaseProp } from '../../typings';
 
 interface Props extends BaseProp {}
 const Welcome = ({ children, className }: Props) => {

@@ -1,5 +1,5 @@
 import React from 'react'
-import logoXcad from '@public/logo_xcad.png'
+import logoXcad from '../../public/logo_xcad.png'
 import Image from 'next/image'
 
 type Props = {}

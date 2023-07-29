@@ -1,6 +1,6 @@
 import React from 'react';
 import { BaseProp } from '../typings';
-import circleWrapper from '@public/circle_wrapper.png';
+import circleWrapper from '../public/circle_wrapper.png';
 import Image from 'next/image';
 
 interface Props extends BaseProp {}

@@ -11,8 +11,8 @@ import PlatformList from '../components/platforms/platform.list';
 import Image from 'next/image';
 
 // ASSETS
-import avatarCircle from '@public/avatar_circle.png';
-import hand from '@public/hand.png';
+import avatarCircle from '../public/avatar_circle.png';
+import hand from '../public/hand.png';
 import TitleEnum from '../elements/Title.enum';
 import { WalletProvider } from '../components/wallet/Wallet.context';
 

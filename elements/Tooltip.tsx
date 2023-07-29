@@ -1,7 +1,7 @@
 import React from 'react';
 import { BaseProp } from '../typings';
-import toolTipError from '@public/tool_tip_error.png';
-import toolTipInfo from '@public/tool_tip_info.png';
+import toolTipError from '../public/tool_tip_error.png';
+import toolTipInfo from '../public/tool_tip_info.png';
 import Image from 'next/image';
 
 interface Props extends BaseProp {
