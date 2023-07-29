@@ -119,9 +119,6 @@ const Home: NextPage = (props) => {
 								<WalletInput
 									label='Wallet Address'
 									placeholder='Write or select walled address'
-									onSend={() => {
-										console.log('Send');
-									}}
 								/>
 							</article>
 						</WalletProvider>

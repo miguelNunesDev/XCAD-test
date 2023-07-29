@@ -2,14 +2,16 @@ import React, { useContext, useRef } from 'react';
 import { BaseProp } from '../../typings';
 import { bech32 } from 'bech32';
 import Image from 'next/image';
-import icon from '../../public/icon_send.svg';
-import Tooltip from '../../elements/Tooltip';
+
 import { WalletContext } from './Wallet.context';
+
+import Tooltip from '../../elements/Tooltip';
+
+import icon from '../../public/icon_send.svg';
 
 interface Props extends Omit<BaseProp, 'children'> {
 	placeholder?: string;
 	label: string;
-	onSend: Function;
 }
 const isBech32 = (value: string) => {
 	return value.includes('zil');
@@ -36,7 +38,7 @@ const convertBech32To16 = (address: string) => {
 	}
 };
 
-const WalletInput = ({ className, label, placeholder, onSend }: Props) => {
+const WalletInput = ({ className, label, placeholder }: Props) => {
 	const context = useContext(WalletContext);
     const input = useRef<HTMLInputElement | null>(null);
     
