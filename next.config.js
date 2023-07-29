@@ -7,6 +7,7 @@ const nextConfig = {
 		webpack5: true, // Si ya tienes esta opción, no la incluyas de nuevo
 	},
     swcMinify: false,
+    "presets": ["next/babel"]
 	// webpack: (config) => {
 	// 	config.resolve.alias['@public'] = path.join(__dirname, 'public');
 	// 	return config;
