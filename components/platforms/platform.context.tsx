@@ -12,6 +12,7 @@ interface Props extends Omit<BaseProp, 'className'> {}
 export const PlatformsProvider = ({ children }: Props) => {
 	const [intervalId, setIntervalId] = useState<NodeJS.Timer | null>(null);
 	const controller = new AbortController();
+    
 	const activePlatforms = Object.keys(Platforms).map(
 		(key) => Platforms[key].id
 	);

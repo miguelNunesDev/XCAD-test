@@ -7,7 +7,7 @@ type Props = {}
 const NavBar = (props: Props) => {
   return (
     <header className='2xl:fixed top-0 pt-14 px-[5.5%] z-10'>
-        <Image src={logoXcad} />
+        <Image src={logoXcad} alt='XCAD logo'/>
     </header>
   )
 }

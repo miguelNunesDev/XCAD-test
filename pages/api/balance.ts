@@ -18,7 +18,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
         const stateData = await state;
         const balances = stateData.balances;
         const wallet = req.query.wallet as string;
-        const token = '0x' + wallet.toLocaleLowerCase();
+        const token = wallet.includes('0x') ? wallet.toLocaleLowerCase() : '0x' + wallet.toLocaleLowerCase();
 
         res.status(200).json({ balance: balances[token] })
         return;

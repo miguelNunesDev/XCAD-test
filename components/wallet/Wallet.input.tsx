@@ -15,8 +15,9 @@ const isBech32 = (value: string) => {
 	return value.includes('zil');
 };
 const isBase16 = (value: string) => {
+    const hex = value.substring(2);
 	const base16Regex = /^[0-9A-Fa-f]+$/;
-	return base16Regex.test(value);
+	return base16Regex.test(hex);
 };
 const convertBech32To16 = (address: string) => {
 	try {
@@ -37,11 +38,13 @@ const convertBech32To16 = (address: string) => {
 
 const WalletInput = ({ className, label, placeholder, onSend }: Props) => {
 	const context = useContext(WalletContext);
+    const input = useRef<HTMLInputElement | null>(null);
+    
 	if (!context) return <></>;
 	const {
 		wallet: [walletValue, setWalletValue],
 	} = context;
-	const input = useRef<HTMLInputElement | null>(null);
+	
 
 	const handler = () => {
 		const value = input?.current?.value ?? 'error';
@@ -73,7 +76,7 @@ const WalletInput = ({ className, label, placeholder, onSend }: Props) => {
 					onClick={handler}
 				>
 					Send
-					<Image className='' src={icon} />
+					<Image className='' src={icon} alt=''/>
 				</button>
 			</div>
 			{walletValue === 'error' ? (
