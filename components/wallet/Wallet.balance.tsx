@@ -22,7 +22,6 @@ const WalletBalance = ({ className }: Props) => {
 	const {
 		balance: [balance, isLoading],
 	} = context;
-    console.log(balance, isLoading);
     
 	return (
 		<section
